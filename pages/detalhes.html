@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PetCare - Detalhes do serviço, preços e tempo estimado de atendimento.">
+  <title>Detalhes do Serviço | PetCare</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Design System & Page CSS -->
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/pages/detalhes.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="../index.html" class="logo">
+        <i class="ph-fill ph-paw-print"></i> Pet<span>Care</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="servicos.html" class="nav-link active">Serviços</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-secondary">Entrar</a>
+        <a href="agendamento.html" class="btn btn-primary cart-btn">
+          <i class="ph ph-calendar-plus"></i> Agendamentos
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-wrapper container section">
+    
+    <div class="breadcrumb mb-6">
+      <a href="servicos.html" class="back-link">
+        <i class="ph ph-arrow-left"></i> Voltar para serviços
+      </a>
+    </div>
+
+    <!-- Container Principal renderizado via JS -->
+    <div id="details-container" aria-live="polite">
+      
+      <!-- Skeleton Loading State -->
+      <div class="details-layout">
+        <div class="skeleton" style="height: 500px; border-radius: var(--radius-xl);"></div>
+        <div class="details-content">
+          <div class="skeleton mb-4" style="height: 40px; width: 70%;"></div>
+          <div class="skeleton mb-8" style="height: 20px; width: 40%;"></div>
+          <div class="skeleton mb-2" style="height: 16px; width: 100%;"></div>
+          <div class="skeleton mb-2" style="height: 16px; width: 100%;"></div>
+          <div class="skeleton mb-8" style="height: 16px; width: 80%;"></div>
+          
+          <div class="skeleton mb-8" style="height: 120px; width: 100%;"></div>
+          <div class="skeleton" style="height: 80px; width: 100%; border-radius: var(--radius-lg);"></div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container grid grid-cols-4">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <i class="ph-fill ph-paw-print"></i> Pet<span>Care</span>
+        </a>
+        <p class="text-small mt-4">Trabalho acadêmico de desenvolvimento frontend.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/services/api.js"></script>
+  <script src="../js/pages/detalhes.js"></script>
+</body>
+</html>

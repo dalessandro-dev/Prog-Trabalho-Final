@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PetCare - Catálogo de Serviços Veterinários e Estética Pet.">
+  <title>Catálogo de Serviços | PetCare</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Design System & Page CSS -->
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/pages/servicos.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="../index.html" class="logo">
+        <i class="ph-fill ph-paw-print"></i> Pet<span>Care</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="servicos.html" class="nav-link active">Serviços</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-secondary">Entrar</a>
+        <a href="agendamento.html" class="btn btn-primary"><i class="ph ph-calendar-plus"></i> Agendar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <!-- Header da Página -->
+    <section class="section-header-catalog text-center">
+      <div class="container">
+        <h1>Nossos Serviços</h1>
+        <p class="text-lg text-muted mt-4">Tudo o que seu pet precisa para uma vida longa e feliz. Explore nossas categorias abaixo.</p>
+      </div>
+    </section>
+
+    <!-- Filtros de Categoria -->
+    <section class="container mt-8">
+      <div class="filters-container" id="filters-container" aria-label="Filtro de categorias">
+        <!-- Renderizado dinamicamente via JS -->
+      </div>
+    </section>
+
+    <!-- Grade de Serviços -->
+    <section class="container mt-12 mb-16">
+      <div class="grid grid-cols-4" id="services-grid" aria-live="polite">
+        <!-- Skeletons (Estado de Carregamento) -->
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+      
+      <!-- Feedback de Categoria Vazia -->
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <i class="ph ph-magnifying-glass"></i>
+        <h3>Nenhum serviço encontrado.</h3>
+        <p>Ainda não adicionamos serviços nesta categoria.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container grid grid-cols-4">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <i class="ph-fill ph-paw-print"></i> Pet<span>Care</span>
+        </a>
+        <p class="text-small mt-4">Trabalho acadêmico de desenvolvimento frontend.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/services/api.js"></script>
+  <script src="../js/pages/servicos.js"></script>
+</body>
+</html>

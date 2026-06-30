@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Serviço | PetCare</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/pages/details.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo">
+        <i class="ph-fill ph-paw-print"></i> Pet<span>Care</span>
+      </a>
+      <nav class="nav-menu">
+        <a href="../index.html">Início</a>
+        <a href="services.html" class="active">Serviços</a>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-secondary" id="header-login-btn">Entrar</a>
+        <a href="appointment.html" class="cart-icon">
+          <i class="ph ph-calendar-plus"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section bg-light min-h-screen">
+    <div class="container">
+      <a href="services.html" class="back-link mb-4"><i class="ph ph-arrow-left"></i> Voltar para serviços</a>
+      
+      <div id="details-container" class="details-wrapper">
+        <div class="text-center"><p>Carregando...</p></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/api-mock.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/pages/details.js"></script>
+</body>
+</html>

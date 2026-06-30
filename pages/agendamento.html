@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Finalize o agendamento dos serviços do seu pet na PetCare.">
+  <title>Agendamento | PetCare</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/pages/agendamento.css">
+</head>
+<body class="bg-gray-50">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="../index.html" class="logo">
+        <i class="ph-fill ph-paw-print"></i> Pet<span>Care</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="servicos.html" class="nav-link">Serviços</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-secondary">Entrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-wrapper container py-16">
+    
+    <div class="text-center mb-8">
+      <h1>Revisar Agendamento</h1>
+      <p class="text-muted mt-2">Confira os serviços selecionados antes de finalizar.</p>
+    </div>
+
+    <!-- Tabela do Carrinho -->
+    <div class="table-container mt-8" id="cart-table-wrapper">
+      <table class="table" id="cart-table">
+        <thead>
+          <tr>
+            <th>Imagem</th>
+            <th>Serviço</th>
+            <th>Preço Unitário</th>
+            <th>Quantidade</th>
+            <th>Subtotal</th>
+            <th class="text-center">Remover</th>
+          </tr>
+        </thead>
+        <tbody id="cart-tbody">
+          <!-- Linhas renderizadas dinamicamente via JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Estado Vazio (Oculto por padrão) -->
+    <div id="cart-empty-state" class="cart-empty-state" style="display: none;">
+      <i class="ph ph-shopping-cart"></i>
+      <h2>Seu carrinho está vazio</h2>
+      <p class="text-muted mt-2">Você ainda não selecionou nenhum serviço para o seu pet.</p>
+      <a href="servicos.html" class="btn btn-primary mt-6">Explorar Serviços</a>
+    </div>
+
+    <!-- Rodapé do Carrinho (Totais e Checkout) -->
+    <div class="cart-footer card mt-8" id="cart-footer">
+      <div class="cart-total-box">
+        <span class="total-label">Total Geral:</span>
+        <span class="total-value" id="cart-total-value">R$ 0,00</span>
+      </div>
+      
+      <button class="btn btn-primary btn-large" id="checkout-btn">
+        <i class="ph ph-check-circle"></i> Finalizar Agendamento
+      </button>
+    </div>
+
+  </main>
+
+  <footer class="footer mt-16">
+    <div class="container text-center">
+      <p class="text-small text-muted">&copy; 2026 PetCare. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Modal customizado de Confirmação em substituição ao Alert() nativo -->
+  <div class="modal-overlay" id="confirm-modal">
+    <div class="modal-card">
+      <h3>Remover serviço?</h3>
+      <p>A quantidade chegou a zero. Deseja remover este serviço do agendamento?</p>
+      <div class="modal-actions mt-6">
+        <button class="btn btn-secondary" id="modal-cancel">Não, manter 1</button>
+        <button class="btn btn-danger" id="modal-confirm">Sim, remover</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/pages/agendamento.js"></script>
+</body>
+</html>

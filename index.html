@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PetCare - Serviços Veterinários e PetShop com agendamento online fácil e rápido.">
+  <title>PetCare | O Melhor para o Seu Pet</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Design System & Page CSS -->
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/pages/home.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="ph-fill ph-paw-print"></i> Pet<span>Care</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Início</a>
+        <a href="pages/servicos.html" class="nav-link">Serviços</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="pages/login.html" class="btn btn-secondary">Entrar</a>
+        <a href="pages/agendamento.html" class="btn btn-primary"><i class="ph ph-calendar-plus"></i> Agendar</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section (Estrutural) -->
+    <section class="hero">
+      <div class="container grid grid-cols-2 hero-layout">
+        <div class="hero-content">
+          <h1>Cuidado excepcional, amor incondicional.</h1>
+          <p class="hero-subtitle">Tudo o que o seu melhor amigo precisa: Clínica Veterinária, Estética, Banho e Hospedagem em um só lugar.</p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">Conheça os Serviços</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=800" alt="Cachorro feliz">
+        </div>
+      </div>
+    </section>
+
+    <!-- Categorias de Serviços -->
+    <section class="section container">
+      <div class="section-header text-center">
+        <h2>O que você procura?</h2>
+        <p>Navegue por nossas categorias especializadas.</p>
+      </div>
+      <div class="grid grid-cols-4" id="categories-container" aria-live="polite">
+        <!-- Renderizado dinamicamente via JS -->
+        <div class="skeleton skeleton-category"></div>
+        <div class="skeleton skeleton-category"></div>
+        <div class="skeleton skeleton-category"></div>
+        <div class="skeleton skeleton-category"></div>
+      </div>
+    </section>
+
+    <!-- Serviços Mais Procurados -->
+    <section id="servicos" class="section section-bg-light">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2>Mais Procurados</h2>
+          <p>Os procedimentos queridinhos dos tutores.</p>
+        </div>
+        <div class="grid grid-cols-3" id="popular-services-container" aria-live="polite">
+          <!-- Renderizado dinamicamente via JS -->
+          <div class="skeleton skeleton-service"></div>
+          <div class="skeleton skeleton-service"></div>
+          <div class="skeleton skeleton-service"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Banner Promocional -->
+    <section class="section container">
+      <div id="promo-container">
+        <!-- Renderizado dinamicamente via JS -->
+        <div class="skeleton skeleton-banner"></div>
+      </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="section section-bg-light">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2>O que dizem nossos clientes</h2>
+          <p>A satisfação de quem confia na PetCare.</p>
+        </div>
+        <div class="grid grid-cols-3" id="testimonials-container" aria-live="polite">
+          <!-- Renderizado dinamicamente via JS -->
+          <div class="skeleton skeleton-testimonial"></div>
+          <div class="skeleton skeleton-testimonial"></div>
+          <div class="skeleton skeleton-testimonial"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Final (Estrutural) -->
+    <section class="cta-section">
+      <div class="container text-center">
+        <h2 class="text-white">Pronto para dar o melhor ao seu pet?</h2>
+        <p class="text-white opacity-80 mt-4 mb-8">Nossa equipe de especialistas está esperando por vocês.</p>
+        <a href="pages/register.html" class="btn btn-secondary cta-btn">Criar Minha Conta Grátis</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container grid grid-cols-4">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <i class="ph-fill ph-paw-print"></i> Pet<span>Care</span>
+        </a>
+        <p class="text-small mt-4">Referência em cuidado e tecnologia para pets no Brasil.</p>
+      </div>
+      <div>
+        <h4>Serviços</h4>
+        <ul class="footer-links">
+          <li><a href="#">Clínica</a></li>
+          <li><a href="#">Estética</a></li>
+          <li><a href="#">Hospedagem</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Suporte</h4>
+        <ul class="footer-links">
+          <li><a href="#">Dúvidas Frequentes</a></li>
+          <li><a href="#">Contato</a></li>
+          <li><a href="#">Políticas de Privacidade</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Redes Sociais</h4>
+        <div class="social-links mt-4">
+          <a href="#"><i class="ph-fill ph-instagram-logo"></i></a>
+          <a href="#"><i class="ph-fill ph-facebook-logo"></i></a>
+          <a href="#"><i class="ph-fill ph-twitter-logo"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./js/services/api.js"></script>
+  <script src="./js/pages/home.js"></script>
+</body>
+</html>

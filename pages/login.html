@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Faça login na PetCare para gerenciar seus agendamentos e pets.">
+  <title>Login | PetCare</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Design System & Page CSS -->
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/pages/auth.css">
+</head>
+<body class="bg-gray-50">
+
+  <div class="auth-wrapper py-16">
+    <a href="../index.html" class="logo mb-8">
+      <i class="ph-fill ph-paw-print"></i> Pet<span>Care</span>
+    </a>
+
+    <div class="auth-card">
+      <div class="text-center mb-8">
+        <h2>Bem-vindo de volta!</h2>
+        <p class="text-muted">Faça login para acessar os agendamentos do seu pet.</p>
+      </div>
+      
+      <!-- novalidate desativa o tooltip nativo do browser para usarmos nossa validação JS customizada -->
+      <form id="login-form" novalidate>
+        
+        <!-- E-mail -->
+        <div class="form-group">
+          <label class="form-label" for="login_email">E-mail</label>
+          <div class="input-with-icon">
+            <i class="ph ph-envelope"></i>
+            <input type="email" id="login_email" name="login_email" class="form-input" placeholder="seu@email.com">
+          </div>
+          <div class="error-text" id="error-login_email"></div>
+        </div>
+
+        <!-- Senha -->
+        <div class="form-group">
+          <label class="form-label" for="login_password" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>Senha</span>
+            <a href="#" style="font-size: var(--font-size-xs); color: var(--color-primary-600); font-weight: var(--font-weight-medium);">Esqueci a senha</a>
+          </label>
+          <div class="input-with-icon">
+            <i class="ph ph-lock-key"></i>
+            <input type="password" id="login_password" name="login_password" class="form-input" placeholder="••••••••">
+          </div>
+          <div class="error-text" id="error-login_password"></div>
+        </div>
+
+        <div id="login-general-error" class="error-container" style="display: none; padding: 1rem; margin-bottom: 1rem;"></div>
+
+        <button type="submit" class="btn btn-primary auth-submit-btn mt-6" id="login-submit-btn">
+          Entrar
+        </button>
+      </form>
+
+      <p class="auth-redirect">
+        Ainda não tem conta? <a href="register.html">Cadastre-se aqui</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/services/api.js"></script>
+  <script src="../js/pages/auth.js"></script>
+</body>
+</html>
