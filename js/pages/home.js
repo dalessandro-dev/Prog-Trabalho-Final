@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 1. Fazendo Fetch da API (Mock) através da camada de serviço
     const homeData = await ApiService.getHomeData();
 
-    // 2. Renderizar Categorias
+    // 2. Renderizar Categorias (link navega para a página de serviços com filtro)
     categoriesContainer.innerHTML = homeData.categories.map(cat => `
-      <a href="#" class="card category-card" style="--cat-bg: ${cat.color}; --cat-color: ${cat.textColor}">
+      <a href="pages/servicos.html?categoria=${cat.id}" class="card category-card" style="--cat-bg: ${cat.color}; --cat-color: ${cat.textColor}">
         <div class="category-icon">
           <i class="ph-fill ${cat.icon}"></i>
         </div>
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="card service-card">
         <div class="service-image">
           <img src="${service.image}" alt="${service.title}" loading="lazy">
-          <span class="badge badge-primary badge-floating">${service.category}</span>
+          <span class="badge badge-primary badge-floating">${service.categoryName}</span>
         </div>
         <div class="service-content">
           <h3 class="h4">${service.title}</h3>

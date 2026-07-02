@@ -100,20 +100,30 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
     `;
 
-    // 4. Lógica de clique do botão
+    // 4. Lógica de clique do botão — adiciona ao carrinho real (localStorage)
     const addBtn = document.getElementById('add-to-cart-btn');
     addBtn.addEventListener('click', () => {
-      // Aqui integraria com a funcionalidade de carrinho do state global
-      const originalText = addBtn.innerHTML;
-      addBtn.innerHTML = '<i class="ph ph-check"></i> Adicionado com sucesso!';
-      addBtn.classList.add('btn-secondary');
-      addBtn.classList.remove('btn-primary');
-      
-      // Voltar ao normal após feedback visual
+      // Monta o objeto no formato esperado pelo carrinho
+      const cartItem = {
+        id: service.id,
+        title: service.title,
+        image: service.image,
+        price: service.price
+      };
+
+      // Chama App.addToCart() que salva no localStorage e exibe toast
+      App.addToCart(cartItem);
+
+      // Feedback visual no botão
+      const originalHTML = addBtn.innerHTML;
+      addBtn.innerHTML = '<i class="ph-fill ph-check-circle"></i> Adicionado!';
+      addBtn.classList.replace('btn-primary', 'btn-secondary');
+      addBtn.disabled = true;
+
       setTimeout(() => {
-        addBtn.innerHTML = originalText;
-        addBtn.classList.remove('btn-secondary');
-        addBtn.classList.add('btn-primary');
+        addBtn.innerHTML = originalHTML;
+        addBtn.classList.replace('btn-secondary', 'btn-primary');
+        addBtn.disabled = false;
       }, 2000);
     });
 

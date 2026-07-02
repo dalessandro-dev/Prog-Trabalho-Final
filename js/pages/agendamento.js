@@ -16,37 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnConfirm = document.getElementById('modal-confirm');
   let itemPendingRemovalId = null;
 
-  // 1. DADOS (Array simulando state global / carrinho)
-  // Estruturado para consumir LocalStorage ou API no futuro.
-  let cartData = [];
-
-  // Tenta carregar do localStorage (Integração Futura/Atual)
+  // Tenta carregar do localStorage
   try {
     const saved = localStorage.getItem('@PetCare:cart');
     if (saved) cartData = JSON.parse(saved);
-  } catch(e) {}
-
-  // MOCK DE FALLBACK: Se estiver vazio, insere itens de teste para você validar visualmente a tabela
-  if (cartData.length === 0) {
-    cartData = [
-      {
-        id: 1,
-        title: "Check-up Completo",
-        image: "https://images.unsplash.com/photo-1628009368231-7bb7cb131649?auto=format&fit=crop&q=80&w=200",
-        price: 150.00,
-        quantity: 1
-      },
-      {
-        id: 6,
-        title: "Banho Terapêutico",
-        image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=200",
-        price: 80.00,
-        quantity: 2
-      }
-    ];
-    // Salva o Mock no LocalStorage para que o usuário sinta o fluxo funcionando
-    saveCart();
-  }
+  } catch(e) { cartData = []; }
 
   // 2. FUNÇÃO DE SALVAMENTO E SINCRONIZAÇÃO
   function saveCart() {

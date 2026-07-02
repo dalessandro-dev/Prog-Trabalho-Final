@@ -82,11 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Chamada abstraída para a camada de serviço (POST /login)
         const response = await ApiService.login(loginPayload);
 
-        // 3. Sucesso -> Redirecionamento
+        // 3. Sucesso -> Salvar sessão e Redirecionar
         btn.innerHTML = '<i class="ph-fill ph-check-circle"></i> Logado com Sucesso!';
         btn.classList.replace('btn-primary', 'btn-secondary');
+
+        // Salva dados do usuário logado no localStorage
+        localStorage.setItem('@PetCare:user', JSON.stringify(response.user));
         
-        // Simulação do redirecionamento pós login exigido
+        // Redirecionamento pós login exigido (para o agendamento/carrinho)
         setTimeout(() => {
           window.location.href = 'agendamento.html';
         }, 1000);

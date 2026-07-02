@@ -8,8 +8,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const filtersContainer = document.getElementById('filters-container');
   const emptyState = document.getElementById('empty-state');
 
-  // Variável de estado local
-  let currentCategory = 'todos';
+  // Variável de estado local — lê categoria da URL se existir (ex: ?categoria=clinica)
+  const urlParams = new URLSearchParams(window.location.search);
+  let currentCategory = urlParams.get('categoria') || 'todos';
   let allServices = [];
 
   try {
@@ -20,8 +21,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     ]);
     allServices = servicesData;
 
-    // 2. Renderiza Filtros de Categorias
-    filtersContainer.innerHTML = categoriesData.map(cat => `
+    // 2. Renderiza Filtros de Categorias (inclui "Todos" manualmente)
+    const todoBtn = `<button class="filter-btn ${currentCategory === 'todos' ? 'active' : ''}" data-id="todos"><i class="ph-fill ph-list"></i> Todos</button>`;
+    filtersContainer.innerHTML = todoBtn + categoriesData.map(cat => `
       <button class="filter-btn ${cat.id === currentCategory ? 'active' : ''}" data-id="${cat.id}">
         <i class="${cat.icon}"></i> ${cat.title}
       </button>
