@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     // 1. Busca os dados simultaneamente (Promise.all)
     const [categoriesData, servicesData] = await Promise.all([
-      ApiService.getCategories(),
-      ApiService.getServices()
+      ApiService.getCategorias(),
+      ApiService.getServicos()
     ]);
     allServices = servicesData;
 

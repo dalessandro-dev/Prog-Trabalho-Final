@@ -15,8 +15,7 @@
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <!-- Design System & Page CSS -->
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="stylesheet" href="../css/pages/auth.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body class="bg-gray-50">
 
@@ -129,72 +128,7 @@
           </div>
         </fieldset>
 
-        <!-- =======================
-             SEÇÃO: DADOS DO PET
-             ======================= -->
-        <fieldset class="form-fieldset mt-8">
-          <legend><i class="ph-fill ph-dog"></i> Dados do Pet</legend>
-          
-          <div class="grid-2-col">
-            <!-- Nome do Pet -->
-            <div class="form-group">
-              <label class="form-label" for="pet_name">Nome do Pet *</label>
-              <div class="input-with-icon">
-                <i class="ph ph-tag"></i>
-                <input type="text" id="pet_name" name="pet_name" class="form-input" placeholder="Ex: Rex">
-              </div>
-              <div class="error-text" id="error-pet_name"></div>
-            </div>
 
-            <!-- Espécie -->
-            <div class="form-group">
-              <label class="form-label" for="pet_species">Espécie *</label>
-              <div class="input-with-icon">
-                <i class="ph ph-cat"></i>
-                <select id="pet_species" name="pet_species" class="form-input" style="padding-left: 2.5rem;">
-                  <option value="" disabled selected>Selecione</option>
-                  <option value="Cachorro">Cachorro</option>
-                  <option value="Gato">Gato</option>
-                  <option value="Ave">Ave</option>
-                  <option value="Outro">Outro</option>
-                </select>
-              </div>
-              <div class="error-text" id="error-pet_species"></div>
-            </div>
-          </div>
-
-          <div class="grid-2-col">
-            <!-- Raça -->
-            <div class="form-group">
-              <label class="form-label" for="pet_breed">Raça</label>
-              <div class="input-with-icon">
-                <i class="ph ph-dna"></i>
-                <input type="text" id="pet_breed" name="pet_breed" class="form-input" placeholder="Ex: Poodle (opcional)">
-              </div>
-              <div class="error-text" id="error-pet_breed"></div>
-            </div>
-
-            <!-- Idade -->
-            <div class="form-group">
-              <label class="form-label" for="pet_age">Idade *</label>
-              <div class="input-with-icon">
-                <i class="ph ph-calendar"></i>
-                <input type="text" id="pet_age" name="pet_age" class="form-input" placeholder="Ex: 2 anos">
-              </div>
-              <div class="error-text" id="error-pet_age"></div>
-            </div>
-          </div>
-
-          <!-- Observações -->
-          <div class="form-group mt-2">
-            <label class="form-label" for="pet_notes">Observações e Histórico Médico</label>
-            <div class="input-with-icon textarea-icon-wrapper">
-              <i class="ph ph-file-text"></i>
-              <textarea id="pet_notes" name="pet_notes" class="form-input form-textarea" rows="4" placeholder="Alergias, medicamentos contínuos, ou comportamento (opcional)"></textarea>
-            </div>
-            <div class="error-text" id="error-pet_notes"></div>
-          </div>
-        </fieldset>
 
         <div id="form-general-error" class="error-container" style="display: none; padding: 1rem; margin-bottom: 1rem;">
           Por favor, corrija os erros destacados acima antes de enviar.
@@ -212,7 +146,7 @@
   </div>
 
   <!-- Scripts -->
-  <script src="../js/services/api.js"></script>
-  <script src="../js/pages/auth.js"></script>
+  <script src="../assets/js/services/api.js"></script>
+  <script src="../assets/js/pages/auth.js"></script>
 </body>
 </html>

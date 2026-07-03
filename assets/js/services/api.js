@@ -15,7 +15,7 @@ const ApiService = {
    * GET /categorias
    * Retorna todas as categorias de serviços cadastradas no banco.
    */
-  getCategories: async () => {
+  getCategorias: async () => {
     const res = await fetch(`${BASE_URL}/categorias`);
     if (!res.ok) throw new Error('Falha ao buscar categorias.');
     const json = await res.json();
@@ -31,10 +31,20 @@ const ApiService = {
   },
 
   /**
+   * Filtra localmente uma categoria pelo ID.
+   */
+  getCategoria: async (id) => {
+    const categorias = await ApiService.getCategorias();
+    const cat = categorias.find(c => c.id === id);
+    if (!cat) throw new Error('Categoria não encontrada.');
+    return cat;
+  },
+
+  /**
    * GET /servicos
    * Retorna todos os serviços (sem filtro de categoria).
    */
-  getServices: async () => {
+  getServicos: async () => {
     const res = await fetch(`${BASE_URL}/servicos`);
     if (!res.ok) throw new Error('Falha ao buscar serviços.');
     const json = await res.json();
@@ -45,7 +55,7 @@ const ApiService = {
    * GET /servicos?categoria=:id
    * Retorna serviços filtrados por categoria.
    */
-  getServicesByCategory: async (categoryId) => {
+  getServicosCategoria: async (categoryId) => {
     const url = categoryId && categoryId !== 'todos'
       ? `${BASE_URL}/servicos?categoria=${categoryId}`
       : `${BASE_URL}/servicos`;
@@ -59,7 +69,7 @@ const ApiService = {
    * GET /servicos/:id
    * Retorna os detalhes completos de um serviço pelo ID.
    */
-  getServiceById: async (id) => {
+  getServico: async (id) => {
     const res = await fetch(`${BASE_URL}/servicos/${id}`);
     if (!res.ok) throw new Error('Serviço não encontrado.');
     const json = await res.json();
@@ -86,13 +96,23 @@ const ApiService = {
 
   /**
    * POST /cadastro
-   * Cadastra um novo usuário e salva no banco de dados.
+   * Cadastra um novo usuário mapeando as chaves em português para o inglês do backend.
    */
-  register: async (userData) => {
+  cadastrarUsuario: async (userData) => {
+    const backendPayload = {
+      name: userData.nome,
+      cpf: userData.cpf,
+      email: userData.email,
+      phone: userData.telefone,
+      city: userData.cidade,
+      address: userData.endereco,
+      password: userData.senha
+    };
+
     const res = await fetch(`${BASE_URL}/cadastro`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData)
+      body: JSON.stringify(backendPayload)
     });
     const json = await res.json();
     if (!res.ok || !json.success) {
@@ -103,8 +123,7 @@ const ApiService = {
 
   /**
    * GET /home
-   * Retorna dados agregados para a página inicial:
-   * categorias, serviços populares, depoimentos e promoção.
+   * Retorna dados agregados para a página inicial.
    */
   getHomeData: async () => {
     const res = await fetch(`${BASE_URL}/home`);
@@ -127,14 +146,51 @@ const ApiService = {
   },
 
   /**
-   * (Checkout é tratado apenas no frontend via localStorage)
+   * Cria um agendamento e salva localmente (mockado / localStorage)
    */
-  checkout: async (cartData) => {
+  criarAgendamento: async (cartData) => {
     if (!cartData || cartData.length === 0) {
       throw new Error('Carrinho vazio.');
     }
-    // Simulação de checkout bem-sucedido
-    return { success: true, protocolId: `PET-${Math.floor(Math.random() * 99999)}` };
+    
+    const protocolId = `PET-${Math.floor(Math.random() * 99999)}`;
+    const novoAgendamento = {
+      protocolId,
+      data: new Date().toISOString(),
+      itens: cartData,
+      total: cartData.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    };
+
+    try {
+      const saved = localStorage.getItem('@PetCare:agendamentos');
+      const agendamentos = saved ? JSON.parse(saved) : [];
+      agendamentos.push(novoAgendamento);
+      localStorage.setItem('@PetCare:agendamentos', JSON.stringify(agendamentos));
+    } catch (e) {
+      console.error("Falha ao persistir agendamento localmente", e);
+    }
+
+    return { success: true, protocolId };
+  },
+
+  /**
+   * Lista todos os agendamentos realizados do localStorage
+   */
+  listarAgendamentos: async () => {
+    try {
+      const saved = localStorage.getItem('@PetCare:agendamentos');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  },
+
+  /**
+   * Limpa a sessão local e desloga o usuário.
+   */
+  logout: async () => {
+    localStorage.removeItem('@PetCare:user');
+    window.location.reload();
   }
 };
 

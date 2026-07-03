@@ -1,0 +1,138 @@
+/* ==========================================================================
+   PETCARE DESIGN SYSTEM - RESPONSIVIDADE (MEDIA QUERIES)
+   ========================================================================== */
+
+/* --- 1. Breakpoint: 1200px (Desktops Grandes) --- */
+@media (max-width: 1200px) {
+  /* Estilos específicos para telas abaixo de 1200px se necessário */
+}
+
+/* --- 2. Breakpoint: 992px (Desktops Menores / Tablets Paisagem) --- */
+@media (max-width: 992px) {
+  /* Global / Grid */
+  .grid-cols-4 { 
+    grid-template-columns: repeat(3, 1fr); 
+  }
+  h1, .h1 { 
+    font-size: var(--font-size-3xl); 
+  }
+
+  /* Home Page */
+  .hero-layout, 
+  .promo-banner { 
+    grid-template-columns: 1fr; 
+  }
+  .hero-content { 
+    text-align: center; 
+  }
+  .hero-buttons { 
+    justify-content: center; 
+  }
+  .footer .grid-cols-4 { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: var(--spacing-8); 
+  }
+
+  /* Detalhes do Serviço */
+  .details-layout {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+  }
+  .details-image {
+    position: relative;
+    top: 0;
+  }
+}
+
+/* --- 3. Breakpoint: 768px (Tablets Retrato) --- */
+@media (max-width: 768px) {
+  /* Global / Grid */
+  .grid-cols-4, 
+  .grid-cols-3 { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+  .nav-links { 
+    display: none; /* Menu Hamburguer no mobile */
+  }
+  .container { 
+    padding: 0 var(--spacing-4); 
+  }
+  h1, .h1 { 
+    font-size: var(--font-size-2xl); 
+  }
+  h2, .h2 { 
+    font-size: var(--font-size-xl); 
+  }
+
+  /* Catálogo de Serviços (Categoria) */
+  .filters-container {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: var(--spacing-4);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+  }
+  .filters-container::-webkit-scrollbar { 
+    display: none; /* Chrome/Safari */
+  }
+  .filter-btn { 
+    scroll-snap-align: start; 
+    white-space: nowrap; 
+  }
+
+  /* Agendamento (Carrinho) */
+  .table-container {
+    overflow-x: auto;
+  }
+  .cart-footer {
+    flex-direction: column;
+    gap: var(--spacing-6);
+    align-items: stretch;
+    text-align: center;
+  }
+}
+
+/* --- 4. Breakpoint: 576px (Celulares) --- */
+@media (max-width: 576px) {
+  /* Global / Grid */
+  .grid-cols-2, 
+  .grid-cols-3, 
+  .grid-cols-4 {
+    grid-template-columns: 1fr;
+  }
+  .btn { 
+    width: 100%; /* Botões cheios */
+  }
+
+  /* Home Page */
+  .promo-content { 
+    padding: var(--spacing-6); 
+  }
+  .footer .grid-cols-4 { 
+    grid-template-columns: 1fr; 
+  }
+
+  /* Catálogo de Serviços (Categoria) */
+  .grid-cols-4 { 
+    grid-template-columns: repeat(1, 1fr); 
+  }
+
+  /* Detalhes do Serviço */
+  .details-actions {
+    flex-direction: column;
+    gap: var(--spacing-6);
+    align-items: flex-start;
+  }
+  .btn-large {
+    width: 100%;
+  }
+
+  /* Autenticação (Login / Cadastro) */
+  .grid-2-col {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .form-fieldset {
+    padding: var(--spacing-4);
+  }
+}

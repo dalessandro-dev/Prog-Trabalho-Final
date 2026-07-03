@@ -97,8 +97,7 @@ const App = {
   
   logout() {
     this.user = null;
-    localStorage.removeItem('@PetCare:user');
-    window.location.reload();
+    ApiService.logout();
   },
 
   formatCurrency(value) {

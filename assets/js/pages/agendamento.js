@@ -16,11 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnConfirm = document.getElementById('modal-confirm');
   let itemPendingRemovalId = null;
 
-  // Tenta carregar do localStorage
-  try {
-    const saved = localStorage.getItem('@PetCare:cart');
-    if (saved) cartData = JSON.parse(saved);
-  } catch(e) { cartData = []; }
+    let cartData = [];
+    // Tenta carregar do localStorage
+    try {
+      const saved = localStorage.getItem('@PetCare:cart');
+      if (saved) cartData = JSON.parse(saved);
+    } catch(e) { cartData = []; }
 
   // 2. FUNÇÃO DE SALVAMENTO E SINCRONIZAÇÃO
   function saveCart() {
@@ -123,8 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
     checkoutBtn.disabled = true;
 
     try {
-      // Integração abstraída com a Service Layer (POST /agendamento)
-      const response = await ApiService.checkout(cartData);
+      // Integração em português com a Service Layer
+      const response = await ApiService.criarAgendamento(cartData);
 
       checkoutBtn.innerHTML = '<i class="ph-fill ph-check-circle"></i> Sucesso!';
       checkoutBtn.classList.replace('btn-primary', 'btn-secondary');
