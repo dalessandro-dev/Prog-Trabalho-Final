@@ -1,7 +1,7 @@
-/**
- * Lógica da Página de Serviços
- * Consome os dados e gera os cards e filtros a partir da Mock API.
- */
+
+ // Lógica da Página de Serviços
+ // Consome os dados e gera os cards e filtros a partir da Mock API.
+ 
 
 document.addEventListener('DOMContentLoaded', async () => {
   const gridContainer = document.getElementById('services-grid');

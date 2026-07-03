@@ -1,22 +1,19 @@
-/**
- * Camada de Serviço da API — PetCare
- * Faz chamadas reais ao backend Node.js + Express + Supabase
- * Backend rodando em: http://localhost:3001
- */
+
+ // Camada de Serviço da API — PetCare
+ // Faz chamadas reais ao backend Node.js + Express + Supabase
+ // Backend rodando em: http://localhost:3001
+
 
 const BASE_URL = 'http://localhost:3001';
 
-// ==========================================
 // HELPERS INTERNOS
-// ==========================================
 function getAuthHeaders() {
   const token = localStorage.getItem('@PetCare:token');
   return token ? { 'Authorization': `Bearer ${token}` } : {};
 }
 
-// ==========================================
+
 // MÓDULO EXPORTADO (ApiService)
-// ==========================================
 const ApiService = {
 
   /**
@@ -291,9 +288,7 @@ function mapServiceDetail(s) {
   };
 }
 
-// ==========================================
 // UTILITÁRIOS GLOBAIS (Helpers)
-// ==========================================
 const Utils = {
   formatCurrency: (val) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val)
 };

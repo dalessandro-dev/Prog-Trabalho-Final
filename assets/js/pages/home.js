@@ -1,7 +1,7 @@
-/**
- * Lógica da Página Home
- * Consome os dados da API e renderiza os componentes dinamicamente.
- */
+
+ // Lógica da Página Home
+ // Consome os dados da API e renderiza os componentes dinamicamente.
+ 
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Referências do DOM
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 2. Renderizar Categorias (link navega para a página de serviços com filtro)
     categoriesContainer.innerHTML = homeData.categories.map(cat => `
-      <a href="pages/servicos.html?categoria=${cat.id}" class="card category-card" style="--cat-bg: ${cat.color}; --cat-color: ${cat.textColor}">
+      <a href="pages/categoria.html?categoria=${cat.id}" class="card category-card" style="--cat-bg: ${cat.color}; --cat-color: ${cat.textColor}">
         <div class="category-icon">
           <i class="ph-fill ${cat.icon}"></i>
         </div>
@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
           <div class="service-footer">
             <span class="service-price">${Utils.formatCurrency(service.price)}</span>
-            <button class="btn btn-primary" aria-label="Agendar ${service.title}">
-              <i class="ph ph-plus"></i>
-            </button>
+            <a href="pages/detalhes.html?id=${service.id}" class="btn btn-primary service-btn">
+              Ver Detalhes
+            </a>
           </div>
         </div>
       </div>
