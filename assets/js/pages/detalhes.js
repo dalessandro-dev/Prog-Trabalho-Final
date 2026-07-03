@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="error-container">
         <h2>Serviço não especificado!</h2>
         <p>Por favor, volte ao catálogo e selecione um serviço válido.</p>
-        <a href="servicos.html" class="btn btn-secondary mt-4">Ir para Catálogo</a>
+        <a href="categoria.html" class="btn btn-secondary mt-4">Ir para Catálogo</a>
       </div>
     `;
     return;
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     // 2. Requisição GET simulada passando o parâmetro através da Service Layer
-    const service = await ApiService.getServiceById(id);
+    const service = await ApiService.getServico(id);
 
     // 3. Renderização Dinâmica (Remoção dos Skeletons e injeção dos dados)
     container.innerHTML = `
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="error-container">
         <h2>Serviço não encontrado.</h2>
         <p>O serviço que você está procurando pode ter sido removido ou está indisponível no momento.</p>
-        <a href="servicos.html" class="btn btn-secondary mt-4">Ver Todos os Serviços</a>
+        <a href="categoria.html" class="btn btn-secondary mt-4">Ver Todos os Serviços</a>
       </div>
     `;
   }

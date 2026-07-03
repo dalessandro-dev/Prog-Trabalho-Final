@@ -245,8 +245,16 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.disabled = true;
 
       try {
-        // Chamada abstraída para a camada de serviço (POST /cadastro)
-        const response = await ApiService.register(data);
+        const tutorPayload = {
+          nome: data.name,
+          cpf: data.cpf,
+          email: data.email,
+          telefone: data.phone,
+          cidade: data.city,
+          endereco: data.address,
+          senha: data.password
+        };
+        const response = await ApiService.cadastrarUsuario(tutorPayload);
         
         btn.innerHTML = '<i class="ph-fill ph-check-circle"></i> Conta criada com sucesso!';
         btn.classList.replace('btn-primary', 'btn-secondary'); // Feedback visual verde/secundário
