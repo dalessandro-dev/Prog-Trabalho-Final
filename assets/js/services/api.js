@@ -7,6 +7,14 @@
 const BASE_URL = 'http://localhost:3001';
 
 // ==========================================
+// HELPERS INTERNOS
+// ==========================================
+function getAuthHeaders() {
+  const token = localStorage.getItem('@PetCare:token');
+  return token ? { 'Authorization': `Bearer ${token}` } : {};
+}
+
+// ==========================================
 // MÓDULO EXPORTADO (ApiService)
 // ==========================================
 const ApiService = {
@@ -146,31 +154,84 @@ const ApiService = {
   },
 
   /**
-   * Cria um agendamento e salva localmente (mockado / localStorage)
+   * POST /pets
+   * Cadastra um novo pet associado a um usuário.
    */
-  criarAgendamento: async (cartData) => {
+  cadastrarPet: async (petData) => {
+    const res = await fetch(`${BASE_URL}/pets`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        ...getAuthHeaders()
+      },
+      body: JSON.stringify(petData)
+    });
+    const json = await res.json();
+    if (!res.ok || !json.success) {
+      throw new Error(json.message || 'Erro ao cadastrar pet.');
+    }
+    return json;
+  },
+
+  /**
+   * GET /pets
+   * Retorna os pets do usuário logado
+   */
+  getPets: async () => {
+    const res = await fetch(`${BASE_URL}/pets`, {
+      headers: { ...getAuthHeaders() }
+    });
+    const json = await res.json();
+    if (!res.ok || !json.success) {
+      throw new Error(json.message || 'Erro ao buscar pets.');
+    }
+    return json.data;
+  },
+
+  /**
+   * POST /agendamentos
+   * Cria um agendamento real na API e salva localmente (histórico)
+   */
+  criarAgendamento: async (cartData, petsIds = []) => {
     if (!cartData || cartData.length === 0) {
       throw new Error('Carrinho vazio.');
     }
     
-    const protocolId = `PET-${Math.floor(Math.random() * 99999)}`;
-    const novoAgendamento = {
-      protocolId,
-      data: new Date().toISOString(),
-      itens: cartData,
-      total: cartData.reduce((acc, item) => acc + item.price * item.quantity, 0)
-    };
+    let user_id = null;
+    try {
+      const savedUser = localStorage.getItem('@PetCare:user');
+      if (savedUser) user_id = JSON.parse(savedUser).id;
+    } catch(e) {}
+
+    const res = await fetch(`${BASE_URL}/agendamentos`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        ...getAuthHeaders()
+      },
+      body: JSON.stringify({ itens: cartData, pets_ids: petsIds, user_id })
+    });
+    
+    const json = await res.json();
+    if (!res.ok || !json.success) {
+      throw new Error(json.message || 'Erro ao processar agendamento.');
+    }
 
     try {
       const saved = localStorage.getItem('@PetCare:agendamentos');
       const agendamentos = saved ? JSON.parse(saved) : [];
-      agendamentos.push(novoAgendamento);
+      agendamentos.push({
+        protocolId: json.data.protocolId,
+        data: new Date().toISOString(),
+        itens: cartData,
+        total: cartData.reduce((acc, item) => acc + item.price * item.quantity, 0)
+      });
       localStorage.setItem('@PetCare:agendamentos', JSON.stringify(agendamentos));
     } catch (e) {
       console.error("Falha ao persistir agendamento localmente", e);
     }
 
-    return { success: true, protocolId };
+    return { success: true, protocolId: json.data.protocolId };
   },
 
   /**
@@ -190,6 +251,7 @@ const ApiService = {
    */
   logout: async () => {
     localStorage.removeItem('@PetCare:user');
+    localStorage.removeItem('@PetCare:token');
     window.location.reload();
   }
 };

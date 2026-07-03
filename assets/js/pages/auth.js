@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Salva dados do usuário logado no localStorage
         localStorage.setItem('@PetCare:user', JSON.stringify(response.user));
+        localStorage.setItem('@PetCare:token', response.token);
         
         // Redirecionamento pós login exigido (para o agendamento/carrinho)
         setTimeout(() => {
@@ -243,8 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
 
       } catch (error) {
-        document.getElementById('form-general-error').textContent = "Falha no servidor. Tente novamente mais tarde.";
-        document.getElementById('form-general-error').style.display = 'block';
+        const errContainer = document.getElementById('form-general-error');
+        errContainer.textContent = error.message || "Falha no servidor. Tente novamente mais tarde.";
+        errContainer.style.display = 'block';
         btn.innerHTML = originalText;
         btn.disabled = false;
       }

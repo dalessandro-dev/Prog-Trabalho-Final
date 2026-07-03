@@ -6,6 +6,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import bcrypt from 'bcryptjs';
 import { supabase } from './supabase';
 
 // ========================================
@@ -323,6 +324,8 @@ async function seed() {
 
   // 1. Limpa tabelas na ordem correta (respeita FK)
   console.log('🗑️  Limpando dados antigos...');
+  await supabase.from('pets').delete().neq('id', 0);
+  await supabase.from('usuarios').delete().neq('id', 0);
   await supabase.from('servicos').delete().neq('id', 0);
   await supabase.from('categorias').delete().neq('id', '');
   console.log('   ✅ Tabelas limpas\n');
@@ -344,6 +347,63 @@ async function seed() {
     process.exit(1);
   }
   console.log(`   ✅ ${servicos.length} serviços inseridos\n`);
+
+  // 4. Insere Usuários e Pets de teste
+  console.log('👥 Inserindo usuários e pets de teste...');
+  const passwordHash = await bcrypt.hash('senha123', 10);
+  const usuarios = [
+    {
+      name: 'João Silva',
+      cpf: '12345678901',
+      email: 'joao@teste.com',
+      phone: '11999999999',
+      city: 'São Paulo',
+      address: 'Rua A, 123',
+      password_hash: passwordHash
+    },
+    {
+      name: 'Maria Oliveira',
+      cpf: '98765432109',
+      email: 'maria@teste.com',
+      phone: '11888888888',
+      city: 'Rio de Janeiro',
+      address: 'Av B, 456',
+      password_hash: passwordHash
+    }
+  ];
+
+  const { data: usersDb, error: usersError } = await supabase.from('usuarios').insert(usuarios).select();
+  if (usersError) {
+    console.error('   ❌ Erro nos usuários:', usersError.message);
+    process.exit(1);
+  }
+  console.log(`   ✅ ${usersDb.length} usuários inseridos\n`);
+
+  const pets = [
+    {
+      name: 'Rex',
+      species: 'Cachorro',
+      breed: 'Labrador',
+      age: '2 anos',
+      notes: 'Muito dócil',
+      user_id: usersDb[0].id
+    },
+    {
+      name: 'Mia',
+      species: 'Gato',
+      breed: 'Siamês',
+      age: '1 ano',
+      notes: 'Gosta de sachê',
+      user_id: usersDb[1].id
+    }
+  ];
+
+  const { error: petsError } = await supabase.from('pets').insert(pets);
+  if (petsError) {
+    console.error('   ❌ Erro nos pets:', petsError.message);
+    process.exit(1);
+  }
+  console.log(`   ✅ ${pets.length} pets inseridos\n`);
 
   console.log('🎉 Seed concluído com sucesso!');
   process.exit(0);
