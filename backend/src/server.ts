@@ -10,6 +10,8 @@ import categoriasRouter from './routes/categorias';
 import servicosRouter from './routes/servicos';
 import authRouter from './routes/auth';
 import homeRouter from './routes/home';
+import petsRouter from './routes/pets';
+import agendamentosRouter from './routes/agendamentos';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -41,6 +43,8 @@ app.use((req, _res, next) => {
 app.use('/categorias', categoriasRouter);
 app.use('/servicos', servicosRouter);
 app.use('/home', homeRouter);
+app.use('/pets', petsRouter);
+app.use('/agendamentos', agendamentosRouter);
 
 // Rotas de autenticação montadas diretamente na raiz
 app.use('/', authRouter);
@@ -57,7 +61,15 @@ app.get('/', (_req, res) => {
       'GET  /servicos?categoria=:id',
       'GET  /servicos/:id',
       'POST /cadastro',
-      'POST /login'
+      'POST /login',
+      'GET  /pets (Requer JWT)',
+      'POST /pets (Requer JWT)',
+      'PUT  /pets/:id (Requer JWT)',
+      'DELETE /pets/:id (Requer JWT)',
+      'POST /agendamentos (Requer JWT)',
+      'GET  /agendamentos (Requer JWT)',
+      'DELETE /agendamentos/:id (Requer JWT)',
+      'PUT  /agendamentos/:id (Requer JWT)'
     ]
   });
 });

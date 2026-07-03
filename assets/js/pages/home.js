@@ -1,7 +1,7 @@
-/**
- * Lógica da Página Home
- * Consome os dados da API e renderiza os componentes dinamicamente.
- */
+
+ // Lógica da Página Home
+ // Consome os dados da API e renderiza os componentes dinamicamente.
+ 
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Referências do DOM
@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
           <div class="service-footer">
             <span class="service-price">${Utils.formatCurrency(service.price)}</span>
-            <button class="btn btn-primary" aria-label="Agendar ${service.title}">
-              <i class="ph ph-plus"></i>
-            </button>
+            <a href="pages/detalhes.html?id=${service.id}" class="btn btn-primary service-btn">
+              Ver Detalhes
+            </a>
           </div>
         </div>
       </div>

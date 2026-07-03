@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Perfil | PetCare</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <style>
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: var(--spacing-8);
+      margin-top: var(--spacing-8);
+    }
+    
+    .sidebar-menu {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2);
+    }
+    
+    .menu-item {
+      padding: var(--spacing-3) var(--spacing-4);
+      border-radius: var(--radius-md);
+      color: var(--color-gray-600);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3);
+      font-weight: var(--font-weight-medium);
+      transition: all var(--transition-fast);
+    }
+    
+    .menu-item:hover, .menu-item.active {
+      background-color: var(--color-primary-50);
+      color: var(--color-primary-600);
+    }
+
+    .pet-card {
+      display: flex;
+      align-items: center;
+      padding: var(--spacing-4);
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-md);
+      gap: var(--spacing-4);
+      background-color: var(--color-white);
+    }
+
+    .pet-avatar {
+      width: 50px;
+      height: 50px;
+      background-color: var(--color-primary-100);
+      color: var(--color-primary-600);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      .profile-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="../index.html" class="logo">
+        <i class="ph-fill ph-paw-print"></i> Pet<span>Care</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Início</a>
+        <a href="categoria.html" class="nav-link">Serviços</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- O JS preenche o botão do usuário aqui -->
+        <a href="login.html" class="btn btn-secondary" id="header-login-btn">Entrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container py-8">
+    <h1 class="h2">Minha Conta</h1>
+
+    <div class="profile-layout">
+      <!-- Menu Lateral -->
+      <aside class="card" style="padding: var(--spacing-4); height: fit-content;">
+        <div class="text-center mb-6">
+          <div class="pet-avatar mx-auto mb-3" style="width: 64px; height: 64px; background: var(--color-gray-200); color: var(--color-gray-600);">
+            <i class="ph ph-user"></i>
+          </div>
+          <h3 id="profile-user-name" class="h4">Carregando...</h3>
+        </div>
+        <nav class="sidebar-menu">
+          <a href="#" class="menu-item active"><i class="ph ph-paw-print"></i> Meus Pets</a>
+          <a href="agendamento.html" class="menu-item"><i class="ph ph-calendar"></i> Agendamentos</a>
+          <a href="#" id="btn-logout" class="menu-item text-error"><i class="ph ph-sign-out"></i> Sair</a>
+        </nav>
+      </aside>
+
+      <!-- Conteúdo Principal -->
+      <section>
+        
+        <!-- Lista de Pets -->
+        <div class="card mb-8" style="padding: var(--spacing-6);">
+          <div class="flex" style="justify-content: space-between; align-items: center; margin-bottom: var(--spacing-6);">
+            <h2 class="h3">Pets Cadastrados</h2>
+            <button class="btn btn-primary btn-sm" onclick="document.getElementById('form-add-pet').scrollIntoView({behavior:'smooth'})">
+              <i class="ph ph-plus"></i> Novo Pet
+            </button>
+          </div>
+          
+          <div id="pets-list" style="display: grid; gap: var(--spacing-4);">
+            <!-- Carregado via JS -->
+            <p class="text-muted">Carregando pets...</p>
+          </div>
+        </div>
+
+        <!-- Formulário Adicionar Pet -->
+        <div class="card" id="form-add-pet" style="padding: var(--spacing-6);">
+          <h2 class="h3 mb-6">Adicionar Novo Pet</h2>
+          <form id="pet-form">
+            <div class="grid-2-col">
+              <div class="form-group">
+                <label class="form-label" for="pet_name">Nome do Pet *</label>
+                <div class="input-with-icon">
+                  <i class="ph ph-tag"></i>
+                  <input type="text" id="pet_name" name="name" class="form-input" required placeholder="Ex: Rex">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="pet_species">Espécie *</label>
+                <div class="input-with-icon">
+                  <i class="ph ph-cat"></i>
+                  <select id="pet_species" name="species" class="form-input" style="padding-left: 2.5rem;" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="Cachorro">Cachorro</option>
+                    <option value="Gato">Gato</option>
+                    <option value="Ave">Ave</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid-2-col">
+              <div class="form-group">
+                <label class="form-label" for="pet_breed">Raça</label>
+                <div class="input-with-icon">
+                  <i class="ph ph-dna"></i>
+                  <input type="text" id="pet_breed" name="breed" class="form-input" placeholder="Ex: Poodle (opcional)">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="pet_age">Idade *</label>
+                <div class="input-with-icon">
+                  <i class="ph ph-calendar"></i>
+                  <input type="text" id="pet_age" name="age" class="form-input" required placeholder="Ex: 2 anos">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <label class="form-label" for="pet_notes">Observações</label>
+              <div class="input-with-icon textarea-icon-wrapper">
+                <i class="ph ph-file-text"></i>
+                <textarea id="pet_notes" name="notes" class="form-input form-textarea" rows="3" placeholder="Alergias, medicamentos..."></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions mt-6" style="text-align: right;">
+              <button type="submit" class="btn btn-primary" id="btn-save-pet">Cadastrar Pet</button>
+            </div>
+          </form>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/services/api.js"></script>
+  <script src="../assets/js/pages/perfil.js"></script>
+</body>
+</html>

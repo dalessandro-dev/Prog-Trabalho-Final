@@ -1,6 +1,6 @@
-/**
- * Lógica do Carrinho / Agendamento
- */
+
+ // Lógica do Carrinho / Agendamento
+ 
 
 document.addEventListener('DOMContentLoaded', () => {
   const tbody = document.getElementById('cart-tbody');
@@ -30,15 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 3. ATUALIZA QUANTIDADE DE UM ITEM (Com lógica de zerar)
-  window.updateQty = function(id, delta) {
-    const index = cartData.findIndex(item => item.id === id);
+  window.updateQty = function(uniqueId, delta) {
+    const index = cartData.findIndex(item => (item.cartItemId || item.id) == uniqueId);
     if (index === -1) return;
 
     let newQty = cartData[index].quantity + delta;
 
     if (newQty <= 0) {
-      // Abre o Modal customizado em vez do 'confirm()' nativo
-      itemPendingRemovalId = id;
+      itemPendingRemovalId = uniqueId;
       modal.classList.add('active');
     } else {
       cartData[index].quantity = newQty;
@@ -47,8 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // 4. REMOVE ITEM DIRETAMENTE
-  window.removeItem = function(id) {
-    cartData = cartData.filter(item => item.id !== id);
+  window.removeItem = function(uniqueId) {
+    cartData = cartData.filter(item => (item.cartItemId || item.id) != uniqueId);
     saveCart();
   };
 
@@ -76,27 +75,25 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>
             <img src="${item.image}" alt="${item.title}" class="cart-item-img">
           </td>
-          <td>
-            <div class="service-info-col">
-              <span class="service-name" style="display: block; font-weight: 600; color: var(--color-gray-900);">${item.title}</span>
-              <span class="service-desc-text" style="display: block; font-size: 0.85rem; color: var(--color-gray-600); margin-top: 4px;">${item.description || 'Sem descrição detalhada.'}</span>
-            </div>
+          <td class="service-name">
+            <div style="font-weight: var(--font-weight-bold); color: var(--color-gray-900);">${item.title}</div>
+            ${item.petName ? `<div class="text-small text-muted" style="margin-top: 4px; display: flex; align-items: center; gap: 4px;"><i class="ph-fill ph-paw-print"></i> Para: <strong>${item.petName}</strong></div>` : ''}
           </td>
           <td class="price-col">${Utils.formatCurrency(item.price)}</td>
           <td>
             <div class="qty-control">
-              <button class="qty-btn" onclick="updateQty(${item.id}, -1)" aria-label="Diminuir quantidade de ${item.title}">
+              <button class="qty-btn" onclick="updateQty('${item.cartItemId || item.id}', -1)" aria-label="Diminuir quantidade">
                 <i class="ph ph-minus"></i>
               </button>
               <span class="qty-value" aria-live="polite">${item.quantity}</span>
-              <button class="qty-btn" onclick="updateQty(${item.id}, 1)" aria-label="Aumentar quantidade de ${item.title}">
+              <button class="qty-btn" onclick="updateQty('${item.cartItemId || item.id}', 1)" aria-label="Aumentar quantidade">
                 <i class="ph ph-plus"></i>
               </button>
             </div>
           </td>
           <td class="subtotal-col">${Utils.formatCurrency(subtotal)}</td>
           <td class="text-center">
-            <button class="remove-btn" onclick="removeItem(${item.id})" aria-label="Remover ${item.title}">
+            <button class="remove-btn" onclick="removeItem('${item.cartItemId || item.id}')" aria-label="Remover do agendamento">
               <i class="ph ph-trash"></i>
             </button>
           </td>
