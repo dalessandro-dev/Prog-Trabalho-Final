@@ -1,14 +1,12 @@
-/**
- * Lógica de Autenticação (Login e Cadastro com Validações)
- */
+
+ // Lógica de Autenticação (Login e Cadastro com Validações)
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('login-form');
   const registerForm = document.getElementById('register-form');
 
-  // ==========================================
   // UTILS GERAIS DE VALIDAÇÃO VISUAL
-  // ==========================================
   const setError = (id, message) => {
     const input = document.getElementById(id);
     if (!input) return;
@@ -43,9 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginErr) loginErr.style.display = 'none';
   };
 
-  // ==========================================
   // LÓGICA DE LOGIN AVANÇADA
-  // ==========================================
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -90,7 +86,23 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('@PetCare:user', JSON.stringify(response.user));
         localStorage.setItem('@PetCare:token', response.token);
         
-        // Redirecionamento pós login exigido (para o agendamento/carrinho)
+        // RECUPERA ITEM PENDENTE DE COMPRA (UX)
+        const pendingItem = localStorage.getItem('@PetCare:pending_cart_item');
+        if (pendingItem) {
+          try {
+            const item = JSON.parse(pendingItem);
+            // Limpa o item pendente para não gerar loop
+            localStorage.removeItem('@PetCare:pending_cart_item');
+            
+            // Redireciona de volta para detalhes para que ele selecione o Pet e auto-adicione
+            setTimeout(() => {
+              window.location.href = `detalhes.html?id=${item.id}&auto_add=true`;
+            }, 1000);
+            return;
+          } catch(e) { console.error("Erro ao recuperar item pendente", e); }
+        }
+        
+        // Redirecionamento padrão pós login
         setTimeout(() => {
           window.location.href = 'agendamento.html';
         }, 1000);
@@ -105,11 +117,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ==========================================
   // LÓGICA DE CADASTRO AVANÇADO
-  // ==========================================
   if (registerForm) {
     
+    // Utilitário de Validação Matemática de CPF
+    const isValidCPF = (cpf) => {
+      cpf = cpf.replace(/[^\d]+/g,'');
+      if (cpf == '') return false;
+      if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) return false;
+      let add = 0;
+      for (let i = 0; i < 9; i++) add += parseInt(cpf.charAt(i)) * (10 - i);
+      let rev = 11 - (add % 11);
+      if (rev == 10 || rev == 11) rev = 0;
+      if (rev != parseInt(cpf.charAt(9))) return false;
+      add = 0;
+      for (let i = 0; i < 10; i++) add += parseInt(cpf.charAt(i)) * (11 - i);
+      rev = 11 - (add % 11);
+      if (rev == 10 || rev == 11) rev = 0;
+      if (rev != parseInt(cpf.charAt(10))) return false;
+      return true;
+    };
+
     // Utilitários de Máscara Simples (opcional, melhora UX)
     const cpfInput = document.getElementById('cpf');
     if (cpfInput) {
@@ -164,8 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
         hasError = true;
       } else { clearError('name'); }
 
-      if (!data.cpf || data.cpf.length !== 11) {
-        setError('cpf', 'CPF inválido. Deve conter 11 dígitos.');
+      // Validação Matemática Completa de CPF
+      if (!data.cpf || !isValidCPF(data.cpf)) {
+        setError('cpf', 'CPF inválido. Forneça um número autêntico.');
         hasError = true;
       } else { clearError('cpf'); }
 
@@ -239,8 +268,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Opcional: Salvar no localStorage que logou
         // localStorage.setItem('@PetCare:user', JSON.stringify({ name: data.name, email: data.email }));
 
+        // Redireciona obrigatoriamente para o login para que ele acesse a conta
         setTimeout(() => {
-          window.location.href = '../index.html'; // Redireciona para home ou tela de login
+          window.location.href = 'login.html';
         }, 2000);
 
       } catch (error) {

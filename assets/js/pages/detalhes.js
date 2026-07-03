@@ -1,7 +1,7 @@
-/**
- * Lógica da Página de Detalhes
- * Lê o ID da URL (?id=x), faz o fetch via API Mockada e injeta os dados detalhados no DOM.
- */
+
+ // Lógica da Página de Detalhes
+ // Lê o ID da URL (?id=x), faz o fetch via API Mockada e injeta os dados detalhados no DOM.
+ 
 
 document.addEventListener('DOMContentLoaded', async () => {
   const container = document.getElementById('details-container');
@@ -126,6 +126,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         addBtn.disabled = false;
       }, 2000);
     });
+
+    // 5. Verifica se há um comando de auto-adicionar (vindo do login)
+    if (urlParams.get('auto_add') === 'true') {
+      addBtn.click();
+      
+      // Limpa a query string para não ficar chamando se o usuário recarregar a página
+      const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?id=' + id;
+      window.history.replaceState({path:newUrl}, '', newUrl);
+    }
 
   } catch (error) {
     // 5. Estado de erro (ex: Serviço ID não existe)
