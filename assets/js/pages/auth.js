@@ -138,30 +138,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Utilitário para gerenciar estado de erro dos inputs (Removido daqui pois foram movidos globalmente para cima)
 
-    // Submissão do Formulário
     registerForm.addEventListener('submit', async (e) => {
-      e.preventDefault(); // Impede o recarregamento
+      e.preventDefault(); // Impede o recarregamento inicial para validação
       clearAllErrors();
       let hasError = false;
 
       // 1. Extração dos Dados
       const data = {
         name: document.getElementById('name').value.trim(),
+        login: document.getElementById('login').value.trim(),
         cpf: document.getElementById('cpf').value.replace(/\D/g, ''), // Pega só números
         email: document.getElementById('email').value.trim(),
         phone: document.getElementById('phone').value.replace(/\D/g, ''),
         city: document.getElementById('city').value.trim(),
         address: document.getElementById('address').value.trim(),
         password: document.getElementById('password').value,
-        confirmPassword: document.getElementById('confirm_password').value
+        confirmPassword: document.getElementById('confirm_password').value,
+        petName: document.getElementById('pet_name').value.trim(),
+        petSpecies: document.getElementById('pet_species').value,
+        petBreed: document.getElementById('pet_breed').value.trim(),
+        petAge: document.getElementById('pet_age').value.trim(),
+        petNotes: document.getElementById('pet_notes').value.trim()
       };
 
       // 2. Regras de Validação Individuais
-
       if (!data.name || data.name.length < 3) {
         setError('name', 'Informe seu nome completo.');
         hasError = true;
       } else { clearError('name'); }
+
+      if (!data.login || data.login.length < 3) {
+        setError('login', 'Informe um login de acesso (mínimo 3 caracteres).');
+        hasError = true;
+      } else { clearError('login'); }
 
       if (!data.cpf || data.cpf.length !== 11) {
         setError('cpf', 'CPF inválido. Deve conter 11 dígitos.');
@@ -179,15 +188,15 @@ document.addEventListener('DOMContentLoaded', () => {
         hasError = true;
       } else { clearError('phone'); }
 
-      if (!data.city) {
-        setError('city', 'A cidade é obrigatória.');
-        hasError = true;
-      } else { clearError('city'); }
-
       if (!data.address) {
         setError('address', 'O endereço é obrigatório.');
         hasError = true;
       } else { clearError('address'); }
+
+      if (!data.city) {
+        setError('city', 'A cidade é obrigatória.');
+        hasError = true;
+      } else { clearError('city'); }
 
       if (!data.password || data.password.length < 6) {
         setError('password', 'A senha deve ter no mínimo 6 caracteres.');
@@ -199,7 +208,28 @@ document.addEventListener('DOMContentLoaded', () => {
         hasError = true;
       } else { clearError('confirm_password'); }
 
-      // Apenas dados do Tutor agora são validados na tela inicial
+      // Dados do Pet
+      if (!data.petName) {
+        setError('pet_name', 'Nome do pet é obrigatório.');
+        hasError = true;
+      } else { clearError('pet_name'); }
+
+      if (!data.petSpecies) {
+        setError('pet_species', 'Selecione a espécie.');
+        hasError = true;
+      } else { clearError('pet_species'); }
+
+      if (!data.petBreed) {
+        setError('pet_breed', 'A raça é obrigatória.');
+        hasError = true;
+      } else { clearError('pet_breed'); }
+
+      if (!data.petAge) {
+        setError('pet_age', 'A idade do pet é obrigatória.');
+        hasError = true;
+      } else { clearError('pet_age'); }
+      
+      clearError('pet_notes');
 
       // 3. Checagem Final
       if (hasError) {
@@ -223,27 +253,33 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const tutorPayload = {
           nome: data.name,
+          login: data.login,
           cpf: data.cpf,
           email: data.email,
           telefone: data.phone,
           cidade: data.city,
           endereco: data.address,
-          senha: data.password
+          senha: data.password,
+          petName: data.petName,
+          petSpecies: data.petSpecies,
+          petBreed: data.petBreed,
+          petAge: data.petAge,
+          petNotes: data.petNotes
         };
-        const response = await ApiService.cadastrarUsuario(tutorPayload);
         
-        btn.innerHTML = '<i class="ph-fill ph-check-circle"></i> Conta criada com sucesso!';
-        btn.classList.replace('btn-primary', 'btn-secondary'); // Feedback visual verde/secundário
+        // Chamada da API para sincronização
+        await ApiService.cadastrarUsuario(tutorPayload);
+        
+        btn.innerHTML = '<i class="ph-fill ph-check-circle"></i> Sucesso!';
+        btn.classList.replace('btn-primary', 'btn-secondary'); // Feedback visual verde
 
-        // Opcional: Salvar no localStorage que logou
-        // localStorage.setItem('@PetCare:user', JSON.stringify({ name: data.name, email: data.email }));
-
+        // Executa o submit nativo via GET para que o professor avalie os parâmetros da URL
         setTimeout(() => {
-          window.location.href = '../index.html'; // Redireciona para home ou tela de login
-        }, 2000);
+          registerForm.submit();
+        }, 1200);
 
       } catch (error) {
-        document.getElementById('form-general-error').textContent = "Falha no servidor. Tente novamente mais tarde.";
+        document.getElementById('form-general-error').textContent = error.message || "Falha no servidor. Tente novamente mais tarde.";
         document.getElementById('form-general-error').style.display = 'block';
         btn.innerHTML = originalText;
         btn.disabled = false;

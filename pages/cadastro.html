@@ -29,9 +29,8 @@
         <h2>Junte-se à família PetCare</h2>
         <p class="text-muted">Crie sua conta e agende o melhor para o seu amigo.</p>
       </div>
-      
-      <!-- novalidate desativa o tooltip nativo do browser para usarmos o nosso -->
-      <form id="register-form" novalidate>
+           <!-- novalidate desativa o tooltip nativo do browser para usarmos o nosso -->
+      <form id="register-form" method="GET" action="../index.html" novalidate>
         
         <!-- =======================
              SEÇÃO: DADOS DO TUTOR
@@ -50,6 +49,18 @@
               <div class="error-text" id="error-name"></div>
             </div>
 
+            <!-- Login de acesso -->
+            <div class="form-group">
+              <label class="form-label" for="login">Login de Acesso *</label>
+              <div class="input-with-icon">
+                <i class="ph ph-user-circle-gear"></i>
+                <input type="text" id="login" name="login" class="form-input" placeholder="Ex: joao.silva">
+              </div>
+              <div class="error-text" id="error-login"></div>
+            </div>
+          </div>
+
+          <div class="grid-2-col">
             <!-- CPF -->
             <div class="form-group">
               <label class="form-label" for="cpf">CPF *</label>
@@ -59,9 +70,7 @@
               </div>
               <div class="error-text" id="error-cpf"></div>
             </div>
-          </div>
 
-          <div class="grid-2-col">
             <!-- E-mail -->
             <div class="form-group">
               <label class="form-label" for="email">E-mail *</label>
@@ -71,29 +80,9 @@
               </div>
               <div class="error-text" id="error-email"></div>
             </div>
-
-            <!-- Telefone -->
-            <div class="form-group">
-              <label class="form-label" for="phone">Telefone (Celular) *</label>
-              <div class="input-with-icon">
-                <i class="ph ph-phone"></i>
-                <input type="tel" id="phone" name="phone" class="form-input" placeholder="(11) 99999-9999">
-              </div>
-              <div class="error-text" id="error-phone"></div>
-            </div>
           </div>
 
           <div class="grid-2-col">
-            <!-- Cidade -->
-            <div class="form-group">
-              <label class="form-label" for="city">Cidade *</label>
-              <div class="input-with-icon">
-                <i class="ph ph-buildings"></i>
-                <input type="text" id="city" name="city" class="form-input" placeholder="São Paulo - SP">
-              </div>
-              <div class="error-text" id="error-city"></div>
-            </div>
-
             <!-- Endereço -->
             <div class="form-group">
               <label class="form-label" for="address">Endereço Completo *</label>
@@ -102,6 +91,16 @@
                 <input type="text" id="address" name="address" class="form-input" placeholder="Rua, Número, Bairro">
               </div>
               <div class="error-text" id="error-address"></div>
+            </div>
+
+            <!-- Cidade -->
+            <div class="form-group">
+              <label class="form-label" for="city">Cidade *</label>
+              <div class="input-with-icon">
+                <i class="ph ph-buildings"></i>
+                <input type="text" id="city" name="city" class="form-input" placeholder="São Paulo - SP">
+              </div>
+              <div class="error-text" id="error-city"></div>
             </div>
           </div>
 
@@ -128,14 +127,91 @@
           </div>
         </fieldset>
 
+        <!-- =======================
+             SEÇÃO: DADOS DO PET / CONTATO
+             ======================= -->
+        <fieldset class="form-fieldset mt-8">
+          <legend><i class="ph-fill ph-dog"></i> Dados do Pet & Contato</legend>
+          
+          <div class="grid-2-col">
+            <!-- Telefone -->
+            <div class="form-group">
+              <label class="form-label" for="phone">Telefone de Contato *</label>
+              <div class="input-with-icon">
+                <i class="ph ph-phone"></i>
+                <input type="tel" id="phone" name="phone" class="form-input" placeholder="(11) 99999-9999">
+              </div>
+              <div class="error-text" id="error-phone"></div>
+            </div>
 
+            <!-- Nome do Pet -->
+            <div class="form-group">
+              <label class="form-label" for="pet_name">Nome do Pet *</label>
+              <div class="input-with-icon">
+                <i class="ph ph-tag"></i>
+                <input type="text" id="pet_name" name="pet_name" class="form-input" placeholder="Ex: Rex">
+              </div>
+              <div class="error-text" id="error-pet_name"></div>
+            </div>
+          </div>
+
+          <div class="grid-2-col">
+            <!-- Espécie -->
+            <div class="form-group">
+              <label class="form-label" for="pet_species">Espécie *</label>
+              <div class="input-with-icon">
+                <i class="ph ph-cat"></i>
+                <select id="pet_species" name="pet_species" class="form-input" style="padding-left: 2.5rem;">
+                  <option value="" disabled selected>Selecione a espécie</option>
+                  <option value="Cachorro">Cachorro</option>
+                  <option value="Gato">Gato</option>
+                  <option value="Ave">Ave</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+              <div class="error-text" id="error-pet_species"></div>
+            </div>
+
+            <!-- Raça -->
+            <div class="form-group">
+              <label class="form-label" for="pet_breed">Raça *</label>
+              <div class="input-with-icon">
+                <i class="ph ph-dna"></i>
+                <input type="text" id="pet_breed" name="pet_breed" class="form-input" placeholder="Ex: Poodle, Vira-lata">
+              </div>
+              <div class="error-text" id="error-pet_breed"></div>
+            </div>
+          </div>
+
+          <div class="grid-2-col">
+            <!-- Idade do Pet -->
+            <div class="form-group">
+              <label class="form-label" for="pet_age">Idade do Pet *</label>
+              <div class="input-with-icon">
+                <i class="ph ph-calendar"></i>
+                <input type="text" id="pet_age" name="pet_age" class="form-input" placeholder="Ex: 3 anos ou 6 meses">
+              </div>
+              <div class="error-text" id="error-pet_age"></div>
+            </div>
+          </div>
+
+          <!-- Observações de Saúde -->
+          <div class="form-group mt-2">
+            <label class="form-label" for="pet_notes">Observações de Saúde</label>
+            <div class="input-with-icon textarea-icon-wrapper">
+              <i class="ph ph-file-text"></i>
+              <textarea id="pet_notes" name="pet_notes" class="form-input form-textarea" rows="4" placeholder="Alergias, vacinas pendentes, restrições médicas (opcional)"></textarea>
+            </div>
+            <div class="error-text" id="error-pet_notes"></div>
+          </div>
+        </fieldset>
 
         <div id="form-general-error" class="error-container" style="display: none; padding: 1rem; margin-bottom: 1rem;">
           Por favor, corrija os erros destacados acima antes de enviar.
         </div>
 
         <button type="submit" class="btn btn-primary auth-submit-btn mt-6" id="submit-btn">
-          Criar Minha Conta
+          Criar Minha Conta e Cadastrar Pet
         </button>
       </form>
 

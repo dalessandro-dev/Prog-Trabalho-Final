@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 2. Renderizar Categorias (link navega para a página de serviços com filtro)
     categoriesContainer.innerHTML = homeData.categories.map(cat => `
-      <a href="pages/servicos.html?categoria=${cat.id}" class="card category-card" style="--cat-bg: ${cat.color}; --cat-color: ${cat.textColor}">
+      <a href="pages/categoria.html?categoria=${cat.id}" class="card category-card" style="--cat-bg: ${cat.color}; --cat-color: ${cat.textColor}">
         <div class="category-icon">
           <i class="ph-fill ${cat.icon}"></i>
         </div>
