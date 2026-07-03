@@ -64,8 +64,12 @@ app.get('/', (_req, res) => {
       'POST /login',
       'GET  /pets (Requer JWT)',
       'POST /pets (Requer JWT)',
+      'PUT  /pets/:id (Requer JWT)',
+      'DELETE /pets/:id (Requer JWT)',
       'POST /agendamentos (Requer JWT)',
-      'GET  /agendamentos (Requer JWT)'
+      'GET  /agendamentos (Requer JWT)',
+      'DELETE /agendamentos/:id (Requer JWT)',
+      'PUT  /agendamentos/:id (Requer JWT)'
     ]
   });
 });

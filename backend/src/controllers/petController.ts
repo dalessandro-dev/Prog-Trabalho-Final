@@ -49,5 +49,62 @@ export const petController = {
       console.error('[GET /pets]', err.message);
       res.status(500).json({ success: false, message: 'Erro ao buscar pets.' });
     }
+  },
+
+  async update(req: Request, res: Response) {
+    try {
+      const user_id = req.userId;
+      const id = parseInt(req.params.id, 10);
+      const { name, species, breed, age, notes } = req.body;
+
+      if (!user_id) {
+        res.status(401).json({ success: false, message: 'Não autorizado.' });
+        return;
+      }
+
+      if (isNaN(id)) {
+        res.status(400).json({ success: false, message: 'ID inválido.' });
+        return;
+      }
+
+      if (name !== undefined && name.trim().length < 2) {
+        res.status(400).json({ success: false, message: 'O nome do pet deve ter pelo menos 2 caracteres.' });
+        return;
+      }
+
+      if (species !== undefined && species.trim() === '') {
+        res.status(400).json({ success: false, message: 'A espécie do pet não pode ser vazia.' });
+        return;
+      }
+
+      const data = await petService.updatePet(id, user_id, { name, species, breed, age, notes });
+      res.json({ success: true, message: 'Pet atualizado com sucesso!', data });
+    } catch (err: any) {
+      console.error('[PUT /pets/:id]', err.message);
+      res.status(500).json({ success: false, message: 'Erro ao atualizar pet.' });
+    }
+  },
+
+  async delete(req: Request, res: Response) {
+    try {
+      const user_id = req.userId;
+      const id = parseInt(req.params.id, 10);
+
+      if (!user_id) {
+        res.status(401).json({ success: false, message: 'Não autorizado.' });
+        return;
+      }
+
+      if (isNaN(id)) {
+        res.status(400).json({ success: false, message: 'ID inválido.' });
+        return;
+      }
+
+      await petService.deletePet(id, user_id);
+      res.json({ success: true, message: 'Pet deletado com sucesso!' });
+    } catch (err: any) {
+      console.error('[DELETE /pets/:id]', err.message);
+      res.status(500).json({ success: false, message: 'Erro ao deletar pet.' });
+    }
   }
 };

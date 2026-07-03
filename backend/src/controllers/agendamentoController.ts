@@ -68,5 +68,86 @@ export const agendamentoController = {
       console.error('[GET /agendamentos]', err.message);
       res.status(500).json({ success: false, message: 'Erro ao buscar agendamentos.' });
     }
+  },
+
+  async delete(req: Request, res: Response) {
+    try {
+      const user_id = req.userId;
+      const id = parseInt(req.params.id, 10);
+
+      if (!user_id) {
+        res.status(401).json({ success: false, message: 'Não autorizado.' });
+        return;
+      }
+
+      if (isNaN(id)) {
+        res.status(400).json({ success: false, message: 'ID inválido.' });
+        return;
+      }
+
+      await agendamentoService.deleteAgendamento(id, user_id);
+      res.json({ success: true, message: 'Agendamento deletado com sucesso!' });
+    } catch (err: any) {
+      console.error('[DELETE /agendamentos/:id]', err.message);
+      res.status(500).json({ success: false, message: err.message || 'Erro ao deletar agendamento.' });
+    }
+  },
+
+  async update(req: Request, res: Response) {
+    try {
+      const user_id = req.userId;
+      const id = parseInt(req.params.id, 10);
+      const { itens, pets_ids } = req.body;
+
+      if (!user_id) {
+        res.status(401).json({ success: false, message: 'Não autorizado.' });
+        return;
+      }
+
+      if (isNaN(id)) {
+        res.status(400).json({ success: false, message: 'ID inválido.' });
+        return;
+      }
+
+      const updateData: any = {};
+      if (pets_ids) {
+        updateData.pets_ids = pets_ids;
+      }
+
+      if (itens && Array.isArray(itens)) {
+        // Normaliza os itens
+        const normalizedItens = itens.map(item => {
+          if (typeof item === 'number') {
+            return { id: item, quantity: 1 };
+          }
+          return { id: item.id, quantity: item.quantity || 1 };
+        });
+
+        let total = 0;
+        const itensComPreco = [];
+
+        for (const item of normalizedItens) {
+          const servicoDb = await servicoService.getServicoById(item.id);
+          if (!servicoDb) {
+            res.status(400).json({ success: false, message: `Serviço de ID ${item.id} não encontrado.` });
+            return;
+          }
+          total += servicoDb.price * item.quantity;
+          itensComPreco.push({
+            id: servicoDb.id,
+            price: servicoDb.price,
+            quantity: item.quantity
+          });
+        }
+        updateData.itens = itensComPreco;
+        updateData.total = total;
+      }
+
+      await agendamentoService.updateAgendamento(id, user_id, updateData);
+      res.json({ success: true, message: 'Agendamento atualizado com sucesso!' });
+    } catch (err: any) {
+      console.error('[PUT /agendamentos/:id]', err.message);
+      res.status(500).json({ success: false, message: err.message || 'Erro ao atualizar agendamento.' });
+    }
   }
 };

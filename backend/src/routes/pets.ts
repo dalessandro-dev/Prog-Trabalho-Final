@@ -9,5 +9,7 @@ router.use(authMiddleware);
 
 router.get('/', petController.getAll);
 router.post('/', petController.create);
+router.put('/:id', petController.update);
+router.delete('/:id', petController.delete);
 
 export default router;

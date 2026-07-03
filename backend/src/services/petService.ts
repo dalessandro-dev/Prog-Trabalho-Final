@@ -32,5 +32,36 @@ export const petService = {
       throw error;
     }
     return data;
+  },
+
+  async updatePet(id: number, userId: number, petData: { name?: string; species?: string; breed?: string; age?: string; notes?: string }) {
+    const { data, error } = await supabase
+      .from('pets')
+      .update(petData)
+      .eq('id', id)
+      .eq('user_id', userId)
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
+    }
+    return data;
+  },
+
+  async deletePet(id: number, userId: number) {
+    // Apaga os vínculos em agendamento_pets para evitar erro de chave estrangeira
+    await supabase.from('agendamento_pets').delete().eq('pet_id', id);
+
+    const { error } = await supabase
+      .from('pets')
+      .delete()
+      .eq('id', id)
+      .eq('user_id', userId);
+
+    if (error) {
+      throw error;
+    }
+    return true;
   }
 };

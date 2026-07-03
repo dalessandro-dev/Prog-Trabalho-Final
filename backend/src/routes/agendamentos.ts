@@ -13,4 +13,10 @@ router.get('/', agendamentoController.getAll);
 // POST /agendamentos
 router.post('/', agendamentoController.create);
 
+// PUT /agendamentos/:id
+router.put('/:id', agendamentoController.update);
+
+// DELETE /agendamentos/:id
+router.delete('/:id', agendamentoController.delete);
+
 export default router;
