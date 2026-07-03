@@ -253,9 +253,7 @@ const ApiService = {
   }
 };
 
-// ==========================================
 // HELPERS DE MAPEAMENTO (banco → frontend)
-// ==========================================
 
 /**
  * Mapeia um objeto de serviço do banco (snake_case) para o formato do frontend (camelCase)
