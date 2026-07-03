@@ -108,7 +108,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         id: service.id,
         title: service.title,
         image: service.image,
-        price: service.price
+        price: service.price,
+        description: service.description
       };
 
       // Chama App.addToCart() que salva no localStorage e exibe toast

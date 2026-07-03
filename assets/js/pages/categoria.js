@@ -67,10 +67,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Gera os cards HTML e injeta no DOM
       gridContainer.innerHTML = filteredServices.map(service => `
         <article class="card service-card">
-          <div class="service-image">
+          <a href="detalhes.html?id=${service.id}" class="service-image">
             <img src="${service.image}" alt="${service.title}" loading="lazy">
             <span class="badge badge-floating">${service.categoryName}</span>
-          </div>
+          </a>
           
           <div class="service-content">
             <h3 class="service-title">${service.title}</h3>
