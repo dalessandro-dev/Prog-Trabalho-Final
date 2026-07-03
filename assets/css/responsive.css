@@ -1,9 +1,3 @@
-/* --- 1. Breakpoint: 1200px (Desktops Grandes) --- */
-@media (max-width: 1200px) {
-  /* Estilos específicos para telas abaixo de 1200px se necessário */
-}
-
-/* --- 2. Breakpoint: 992px (Desktops Menores / Tablets Paisagem) --- */
 @media (max-width: 992px) {
   /* Global / Grid */
   .grid-cols-4 { 
@@ -40,7 +34,6 @@
   }
 }
 
-/* --- 3. Breakpoint: 768px (Tablets Retrato) --- */
 @media (max-width: 768px) {
   /* Global / Grid */
   .grid-cols-4, 
@@ -88,7 +81,6 @@
   }
 }
 
-/* --- 4. Breakpoint: 576px (Celulares) --- */
 @media (max-width: 576px) {
   /* Global / Grid */
   .grid-cols-2, 
