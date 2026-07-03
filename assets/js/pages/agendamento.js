@@ -76,7 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>
             <img src="${item.image}" alt="${item.title}" class="cart-item-img">
           </td>
-          <td class="service-name">${item.title}</td>
+          <td>
+            <div class="service-info-col">
+              <span class="service-name" style="display: block; font-weight: 600; color: var(--color-gray-900);">${item.title}</span>
+              <span class="service-desc-text" style="display: block; font-size: 0.85rem; color: var(--color-gray-600); margin-top: 4px;">${item.description || 'Sem descrição detalhada.'}</span>
+            </div>
+          </td>
           <td class="price-col">${Utils.formatCurrency(item.price)}</td>
           <td>
             <div class="qty-control">
