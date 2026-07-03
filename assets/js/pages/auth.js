@@ -153,13 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         city: document.getElementById('city').value.trim(),
         address: document.getElementById('address').value.trim(),
         password: document.getElementById('password').value,
-        confirmPassword: document.getElementById('confirm_password').value,
-        
-        petName: document.getElementById('pet_name').value.trim(),
-        petSpecies: document.getElementById('pet_species').value,
-        petBreed: document.getElementById('pet_breed').value.trim(),
-        petAge: document.getElementById('pet_age').value.trim(),
-        petNotes: document.getElementById('pet_notes').value.trim()
+        confirmPassword: document.getElementById('confirm_password').value
       };
 
       // 2. Regras de Validação Individuais
@@ -205,25 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hasError = true;
       } else { clearError('confirm_password'); }
 
-      // Dados do Pet
-      if (!data.petName) {
-        setError('pet_name', 'Nome do pet é obrigatório.');
-        hasError = true;
-      } else { clearError('pet_name'); }
-
-      if (!data.petSpecies) {
-        setError('pet_species', 'Selecione a espécie.');
-        hasError = true;
-      } else { clearError('pet_species'); }
-
-      if (!data.petAge) {
-        setError('pet_age', 'Idade aproximada é obrigatória.');
-        hasError = true;
-      } else { clearError('pet_age'); }
-      
-      // Breed e Notes são opcionais, portanto sempre chamamos clearError para setar a bordinha verde
-      clearError('pet_breed');
-      clearError('pet_notes');
+      // Apenas dados do Tutor agora são validados na tela inicial
 
       // 3. Checagem Final
       if (hasError) {
