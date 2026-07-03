@@ -291,7 +291,7 @@ const App = {
       position: 'fixed',
       bottom: '20px',
       right: '20px',
-      backgroundColor: type === 'error' ? '#EF4444' : (type === 'info' ? '#3B82F6' : 'var(--primary-dark)'),
+      backgroundColor: type === 'error' ? 'var(--color-error)' : (type === 'info' ? 'var(--color-info)' : 'var(--color-success)'),
       color: 'white',
       padding: '1rem 1.5rem',
       borderRadius: 'var(--radius-md)',

@@ -1144,6 +1144,25 @@ p { color: var(--color-gray-600); margin-bottom: var(--spacing-4); }
   background-color: #DC2626;
 }
 
+/* Badge do Carrinho Flutuante */
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--color-error);
+  color: var(--color-white);
+  font-size: 0.7rem;
+  font-weight: bold;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
+}
+
 /* ==========================================================================
    16. MEDIA QUERIES (RESPONSIVIDADE)
    ========================================================================== */
